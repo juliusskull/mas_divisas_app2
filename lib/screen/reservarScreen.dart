@@ -60,13 +60,25 @@ class _MyHomePageState extends State<ReservarScreen> {
       estado=this._estado_img;
     });
   }
- ver_imagen(){
-    return Image.network(_imagen_utl+"R"+this.reserva_id+".png",
+  ver_imagen(){
+    return Container(
+      margin: const EdgeInsets.all(30),
+      child: Image.network(_imagen_utl+"R"+this.reserva_id+".png",
+        fit: BoxFit.cover,
+        height: double.infinity,
+        width: double.infinity,
+        alignment: Alignment.center,
+      ),
+    );
+    /*
+    Image.network(_imagen_utl+"R"+this.reserva_id+".png",
       fit: BoxFit.cover,
       height: double.infinity,
       width: double.infinity,
-      alignment: Alignment.center,);
-}
+      alignment: Alignment.center,
+    );
+    */
+  }
 ver_add(){
   return  Container(
 

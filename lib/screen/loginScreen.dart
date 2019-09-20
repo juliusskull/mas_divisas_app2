@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen>
         ])]);
   }
   Widget loginForm() {
-    return Column(
+    return new SingleChildScrollView(child:Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Row(
@@ -319,7 +319,7 @@ class _LoginScreenState extends State<LoginScreen>
           ),
         ),
       ],
-    );
+    ));
   }
 }
 

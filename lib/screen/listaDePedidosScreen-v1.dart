@@ -8,7 +8,6 @@ import 'package:mas_divisas_app/models/cotizacion.dart';
 import 'package:mas_divisas_app/screen/reservarScreen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
-/*
 class ListaDePedidosScreen extends StatelessWidget {
   final String usuario;
   final String cliente_id;
@@ -24,12 +23,12 @@ class ListaDePedidosScreen extends StatelessWidget {
   }
 
 }
-*/
-class ListaDePedidosScreen extends StatefulWidget {
+
+class MyHomePage extends StatefulWidget {
   final String usuario;
   final String cliente_id;
 
-   ListaDePedidosScreen({Key key, this.usuario, this.cliente_id}) : super(key: key);
+  const MyHomePage({Key key, this.usuario, this.cliente_id}) : super(key: key);
   @override
   _MyHomePageState createState() => new _MyHomePageState(usuario: this.usuario, cliente_id: this.cliente_id);
 }
@@ -40,7 +39,7 @@ class API {
     return http.get(url);
   }
 }
-class _MyHomePageState extends State<ListaDePedidosScreen> {
+class _MyHomePageState extends State<MyHomePage> {
   final String usuario;
   final String cliente_id;
   String _imagen_utl="http://sd-1578096-h00001.ferozo.net/reservas/reservas_imagenes/";//'https://picsum.photos/250?image=9';
@@ -180,7 +179,7 @@ class _MyHomePageState extends State<ListaDePedidosScreen> {
     return new Scaffold(
       appBar: new AppBar(title: new Text('Mas Divisas S.A')),
       body: (estado==this._estado_add)? get_lista(): ver_imagen() ,
-      /*drawer: new Drawer(
+      drawer: new Drawer(
         child: ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
@@ -201,7 +200,6 @@ class _MyHomePageState extends State<ListaDePedidosScreen> {
           ],
         ),
       ),
-      */
     );
   }
 }
