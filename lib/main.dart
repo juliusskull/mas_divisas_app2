@@ -78,11 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
     _id_cliente= sharedPreferences.getString(_cliente_idPrefs);
     //print('print=>'+ _correo );
     //MyCustomForm()
+    /*
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => LoginScreen()),
     );
-/*
+    */
+
     if(_correo!=null){
       Navigator.pushReplacement(
         context,
@@ -94,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
         MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     }
-*/
+
   }
 /* void*/ _incrementCounter() {
 
