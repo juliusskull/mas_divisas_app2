@@ -142,9 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               );}),
           ),
-
+//48.0,
           Positioned(
-            bottom: 48.0,
+            bottom: 0.0,
             left: 10.0,
             right: 10.0,
             child: Card(
