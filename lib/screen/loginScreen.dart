@@ -7,9 +7,8 @@ import 'package:mas_divisas_app/models/post_logueo.dart';
 import 'package:mas_divisas_app/screen/ppal.dart';
 import 'package:mas_divisas_app/screen/homeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mas_divisas_app/screen/loginScreen.dart';
 import 'package:mas_divisas_app/screen/registrarceScreen.dart';
-//https://github.com/Arkangel12/animacion_loginbasico/blob/master/lib/screens/loginScreen.dart
+
 class LoginScreen extends StatefulWidget {
   static Route<dynamic> route() {
     return MaterialPageRoute(

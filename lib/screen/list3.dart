@@ -4,8 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mas_divisas_app/models/cotizacion.dart';
-import 'package:mas_divisas_app/models/listpost.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:mas_divisas_app/screen/reservarScreen2.dart';
 class MyListScreen extends StatefulWidget {

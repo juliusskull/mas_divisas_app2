@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mas_divisas_app/screen/about.dart';
-import 'package:mas_divisas_app/screen/list3.dart';
 import 'package:mas_divisas_app/models/cotizacion.dart';
 import 'package:mas_divisas_app/screen/reservarScreen.dart';
 import 'package:http/http.dart' as http;
