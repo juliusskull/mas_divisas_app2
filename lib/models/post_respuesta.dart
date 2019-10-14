@@ -1,9 +1,9 @@
 class PostRespuesta {
   final bool status;
   final String massage;
-  final String id_cliente;
+  final String idCliente;
   final String extra;
-  PostRespuesta({this.status,this.massage,this.id_cliente,this.extra});
+  PostRespuesta({this.status,this.massage,this.idCliente,this.extra});
 
 
 
@@ -11,7 +11,7 @@ class PostRespuesta {
     return PostRespuesta(
       status: json['status'],
       massage: json['massage'],
-      id_cliente: json['id_cliente'],
+        idCliente: json['id_cliente'],
       extra: ""
 
     );
@@ -20,7 +20,7 @@ class PostRespuesta {
     return PostRespuesta(
       status: json['status'],
       massage: json['massage'],
-      id_cliente: json['id_cliente'],
+      idCliente: json['id_cliente'],
       extra: json['extra'],
 
     );

@@ -15,11 +15,10 @@ class MyCustomForm extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class _MyHomePageState extends State<MyCustomForm> {
-  int _currVal = 1;
   double _radioValue = 0;
-  String _imagen_utl='https://picsum.photos/250?image=9';
-  int  _estado_add=1;
-  int  _estado_img=2;
+  String _imagenUrl='https://picsum.photos/250?image=9';
+  int  _estadoAdd=1;
+
   int estado= 1;
   final nombreController = TextEditingController();
   final dniController = TextEditingController();
@@ -27,8 +26,8 @@ class _MyHomePageState extends State<MyCustomForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final url="http://sd-1578096-h00001.ferozo.net/reservas/wses.php";
- // final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -53,7 +52,7 @@ class _MyHomePageState extends State<MyCustomForm> {
       appBar: new AppBar(
         title: new Text('Register'),
       ),
-      body: (estado==this._estado_add)? ver_add(): ver_imagen()
+      body: (estado==this._estadoAdd)? verAdd(): verImagen()
       ,
     );
   }
@@ -74,8 +73,8 @@ class _MyHomePageState extends State<MyCustomForm> {
       return PostRespuesta.fromJson(json.decode(response.body));
     });
   }
-  ver_imagen(){
-    return Image.network(_imagen_utl, );
+  verImagen(){
+    return Image.network(_imagenUrl, );
   }
   Future<Null> _submitDialog(BuildContext context) async {
     return await showDialog<Null>(
@@ -95,7 +94,7 @@ class _MyHomePageState extends State<MyCustomForm> {
           );
         });
   }
-  ver_add(){
+  verAdd(){
     return  Container(
       //child:
       child: new SingleChildScrollView(

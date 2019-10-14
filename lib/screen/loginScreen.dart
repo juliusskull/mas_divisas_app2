@@ -260,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen>
                       try {
                           PostRespuesta p= await createPostRespuesta(this.url,body: newPostLogueo.toMap());
                           if(p.status){
-                            _idCliente=p.id_cliente;
+                            _idCliente=p.idCliente;
                             setCredential();
 
                             _ir();
