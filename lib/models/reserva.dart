@@ -1,11 +1,11 @@
 class Reserva {
-  final String id_reservas_imagenes;
-  final String id_reserva;
+  final String idReservasImagenes;
+  final String idReserva;
   final String archivo;
   final String usuario;
   final String fchalta;
 
- Reserva({this.id_reservas_imagenes, this.id_reserva, this.archivo, this.usuario, this.fchalta});
+ Reserva({this.idReservasImagenes, this.idReserva, this.archivo, this.usuario, this.fchalta});
 /*
   Reserva.map(dynamic obj){
     this._id_reservas_imagenes = obj["id_reservas_imagenes"];
@@ -35,8 +35,8 @@ class Reserva {
 */
   factory Reserva.fromJson(Map<String, dynamic> json) {
     return Reserva(
-      id_reservas_imagenes: json['id_reservas_imagenes'],
-      id_reserva: json['id_reserva'],
+      idReservasImagenes: json['id_reservas_imagenes'],
+      idReserva: json['id_reserva'],
       archivo: json['archivo'],
       usuario: json['usuario'],
       fchalta: json['fchalta']

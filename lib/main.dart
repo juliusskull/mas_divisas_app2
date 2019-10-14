@@ -52,17 +52,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _correo;
-  String _contrasena;
-  String mensaje = '';
-  String _id_cliente;
-  final String _usuarioPrefs = "usuario";
-  final String _cliente_idPrefs = "cliente_id";
 
-  int _counter = 0;
+  String mensaje = '';
+  String _idCliente = '';
+  final String _usuarioPrefs = "usuario";
+  final String _clienteIdPrefs = "cliente_id";
+
+
   initState() {
-    print('print=>------------' );
+
     super.initState();
-    print('print=>------------' );
+
     getCredential();
   }
   dispose() {
@@ -70,12 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
   getCredential() async {
-    print('print=>------------1' );
+
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.getString(_usuarioPrefs);
 
     _correo    =  sharedPreferences.getString(_usuarioPrefs);
-    _id_cliente= sharedPreferences.getString(_cliente_idPrefs);
+    _idCliente= sharedPreferences.getString(_clienteIdPrefs);
     //print('print=>'+ _correo );
     //MyCustomForm()
     /*
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if(_correo!=null){
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Ppal(usuario:_correo,cliente_id:_id_cliente)),
+        MaterialPageRoute(builder: (context) => Ppal(usuario:_correo,idCliente:_idCliente)),
       );
     }else{
       Navigator.pushReplacement(
@@ -98,21 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
   }
-/* void*/ _incrementCounter() {
 
-
-
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-
-
-  }
 
   @override
   Widget build(BuildContext context) {

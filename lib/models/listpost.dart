@@ -25,7 +25,7 @@ class ListViewPosts extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    '${posts[position].cotizacion_venta}',
+                    '${posts[position].cotizacionVenta}',
                     style: new TextStyle(
                       fontSize: 18.0,
                       fontStyle: FontStyle.italic,
@@ -37,7 +37,7 @@ class ListViewPosts extends StatelessWidget {
                         backgroundColor: Colors.blueAccent,
                         radius: 35.0,
                         child: Text(
-                          'User ${posts[position].id_cotizaciones}',
+                          'User ${posts[position].idCotizaciones}',
                           style: TextStyle(
                             fontSize: 22.0,
                             color: Colors.white,
@@ -57,6 +57,6 @@ class ListViewPosts extends StatelessWidget {
   void _onTapItem(BuildContext context, Cotizacion post) {
     Scaffold
         .of(context)
-        .showSnackBar(new SnackBar(content: new Text(post.id_cotizaciones.toString() + ' - ' + post.moneda)));
+        .showSnackBar(new SnackBar(content: new Text(post.idCotizaciones.toString() + ' - ' + post.moneda)));
   }
 }

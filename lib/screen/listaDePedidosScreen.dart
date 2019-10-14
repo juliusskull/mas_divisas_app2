@@ -8,11 +8,11 @@ import 'package:http/http.dart' as http;
 
 class ListaDePedidosScreen extends StatefulWidget {
   final String usuario;
-  final String cliente_id;
+  final String idCliente;
 
-   ListaDePedidosScreen({Key key, this.usuario, this.cliente_id}) : super(key: key);
+   ListaDePedidosScreen({Key key, this.usuario, this.idCliente}) : super(key: key);
   @override
-  _MyHomePageState createState() => new _MyHomePageState(usuario: this.usuario, cliente_id: this.cliente_id);
+  _MyHomePageState createState() => new _MyHomePageState(usuario: this.usuario, idCliente: this.idCliente);
 }
 const baseUrl = "http://sd-1578096-h00001.ferozo.net/reservas/wses.php?select-reservas-imagenes=";
 class API {
@@ -23,12 +23,12 @@ class API {
 }
 class _MyHomePageState extends State<ListaDePedidosScreen> {
   final String usuario;
-  final String cliente_id;
-  String _imagen_utl="http://sd-1578096-h00001.ferozo.net/reservas/reservas_imagenes/";//'https://picsum.photos/250?image=9';
-  int  _estado_add=1;
-  int  _estado_img=2;
+  final String idCliente;
+  String imagenUrl="http://sd-1578096-h00001.ferozo.net/reservas/reservas_imagenes/";//'https://picsum.photos/250?image=9';
+  int  estadoAdd=1;
+  int  estadoImg=2;
   int estado= 1;
-  String reserva_id="";
+  String idReserva="";
   final String tyc="Caseros 521 local 6, (Paseo del Cabildo) telf.387-4222466. Horario de atención de 8.30 a 13 hs y de 16.30 a 19hs y sábados de 9 a 13 hs";
   var users = new List<Reserva>();
   initState() {
@@ -46,22 +46,11 @@ class _MyHomePageState extends State<ListaDePedidosScreen> {
       });
     });
   }
-  ckeck_conexion(){
-    /*
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print('connected');
-      }
-    } on SocketException catch (_) {
-      print('not connected');
-    }
-    */
-  }
-  ver_imagen(){
+
+  verImagen(){
     return Container(
       margin: const EdgeInsets.all(30),
-        child: Image.network(_imagen_utl+"R"+this.reserva_id+".png",
+        child: Image.network(imagenUrl+"R"+this.idReserva+".png",
           fit: BoxFit.cover,
           height: double.infinity,
           width: double.infinity,
@@ -77,21 +66,21 @@ class _MyHomePageState extends State<ListaDePedidosScreen> {
     );
     */
   }
-  _MyHomePageState({this.usuario,this.cliente_id});
-  var icono_empresa = Row(
+  _MyHomePageState({this.usuario,this.idCliente});
+  var iconoEmpresa = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset('assets/user.png')
       ]
   );
-  void buttonPressed(String reserva_id){
+  void buttonPressed(String idReserva){
 
     setState(() {
-      this.reserva_id=reserva_id;
-      estado=this._estado_img;
+      this.idReserva = idReserva;
+      estado=this.estadoImg;
     });
   }
-  get_lista(){
+  getLista(){
    return Stack(
       children: <Widget>[
         Container(
@@ -110,7 +99,7 @@ class _MyHomePageState extends State<ListaDePedidosScreen> {
             return Card(
                 child: ListTile(
                     title: IntrinsicHeight( child: Text(users[index].fchalta),)
-                    , onTap: () => buttonPressed(users[index].id_reserva)
+                    , onTap: () => buttonPressed(users[index].idReserva)
                 )
 
             );
@@ -160,7 +149,7 @@ class _MyHomePageState extends State<ListaDePedidosScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(title: new Text('Mas Divisas S.A')),
-      body: (estado==this._estado_add)? get_lista(): ver_imagen() ,
+      body: (estado==this.estadoAdd)? getLista(): verImagen() ,
       /*drawer: new Drawer(
         child: ListView(
           children: <Widget>[

@@ -160,7 +160,7 @@ Widget _buildAboutDialog(BuildContext context,String  tipo_moneda, String compra
   );
 }
 
-Widget  _boton(BuildContext context, String id_cotizacion,String tipo_moneda, String compra, String venta ){
+Widget  _boton(BuildContext context, String idCotizacion,String tipoMoneda, String compra, String venta ){
   return RaisedButton(
     padding: const EdgeInsets.all(8.0),
     elevation: 4.0,
@@ -269,8 +269,8 @@ class _MyListScreenState extends State {
            // if( users[index].sucursal_id.toString().ec == '1')
               return Card(
                   child: ListTile(
-                    title: IntrinsicHeight( child: _dinero(users[index].moneda,users[index].cotizacion_compra, users[index].cotizacion_venta),)
-                    , subtitle: Container( color: Colors.black,  child:  _boton(context,users[index].id_cotizaciones,users[index].moneda, users[index].cotizacion_compra,users[index].cotizacion_venta )),
+                    title: IntrinsicHeight( child: _dinero(users[index].moneda,users[index].cotizacionCompra, users[index].cotizacionVenta),)
+                    , subtitle: Container( color: Colors.black,  child:  _boton(context,users[index].idCotizaciones,users[index].moneda, users[index].cotizacionCompra,users[index].cotizacionVenta )),
                   )
               );
            // else return null;

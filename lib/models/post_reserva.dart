@@ -1,19 +1,19 @@
 class PostReserva{
-  final String id_reserva;
+  final String idReserva;
   final String tipo;
-  final String cliente_id;
+  final String idCliente;
   final String valor;
-  final String tipo_moneda;
+  final String tipoMoneda;
 
-  PostReserva({this.id_reserva, this.tipo, this.cliente_id, this.valor, this.tipo_moneda});
+  PostReserva({this.idReserva, this.tipo, this.idCliente, this.valor, this.tipoMoneda});
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     map["reserva"] = "1";
     map["tipo"] = tipo;
-    map["cliente_id"] = cliente_id;
+    map["cliente_id"] = idCliente;
     map["valor"] = valor;
-    map["tipo_moneda"] = id_reserva;
+    map["tipo_moneda"] = idReserva;
 
 
     return map;

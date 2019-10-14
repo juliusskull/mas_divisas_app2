@@ -20,7 +20,7 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 final String _usuarioPrefs = "usuario";
-final String _cliente_idPrefs = "cliente_id";
+final String _clienteIdPrefs = "cliente_id";
 
 Future<String> getStringPrefs(String s) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -50,6 +50,7 @@ Future<bool> createSession(String url, {Map body}) async {
       //throw new Exception("Error while fetching data");
       return false;
     }else{
+      // ignore: unused_local_variable
       PostRespuesta rr =PostRespuesta.fromJson(json.decode(response.body));
 
       return true;
@@ -82,15 +83,15 @@ Future<Logueo> fetchLogueo() async {
 class Logueo {
   final bool status ;
   final String massage;
-  final int id_cliente;
+  final int idCliente;
 
-  Logueo({this.status,this.massage,this.id_cliente});
+  Logueo({this.status,this.massage,this.idCliente});
 
   factory Logueo.fromJson(Map<String, dynamic> json) {
     return Logueo(
       status: json['status'],
       massage: json['massage'],
-      id_cliente: json['id_cliente'],
+      idCliente: json['id_cliente'],
 
     );
   }
@@ -110,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen>
   String _correo;
   String _contrasena;
   String mensaje = '';
-  String _id_cliente;
+  String _idCliente;
 
   bool _logueado = false;
 
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen>
     sharedPreferences.getString(_usuarioPrefs);
 
     _correo    =  sharedPreferences.getString(_usuarioPrefs);
-    _id_cliente= sharedPreferences.getString(_cliente_idPrefs);
+    _idCliente= sharedPreferences.getString(_clienteIdPrefs);
     print('print=>'+ _correo );
 
     if(_correo!=null){
@@ -129,14 +130,14 @@ class _LoginScreenState extends State<LoginScreen>
   setCredential() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString(_usuarioPrefs, _correo);
-    sharedPreferences.setString(_cliente_idPrefs, _id_cliente);
+    sharedPreferences.setString(_clienteIdPrefs, _idCliente);
   }
   _ir(){
     //('/ppal');
     Navigator.push(
       context,
       //MaterialPageRoute(builder: (context) => SyncData(post: fetchPost())),
-      MaterialPageRoute(builder: (context) => Ppal(usuario:_correo,cliente_id:_id_cliente)),
+      MaterialPageRoute(builder: (context) => Ppal(usuario:_correo,idCliente:_idCliente)),
     );
   }
 
@@ -259,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen>
                       try {
                           PostRespuesta p= await createPostRespuesta(this.url,body: newPostLogueo.toMap());
                           if(p.status){
-                            _id_cliente=p.id_cliente;
+                            _idCliente=p.id_cliente;
                             setCredential();
 
                             _ir();

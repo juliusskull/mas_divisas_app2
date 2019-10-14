@@ -1,23 +1,23 @@
 class Cotizacion {
-  final String id_cotizaciones;
-  final String sucursal_id;
+  final String idCotizaciones;
+  final String idSucursal;
   final String moneda;
-  final String cotizacion_compra;
-  final String cotizacion_venta;
+  final String cotizacionCompra;
+  final String cotizacionVenta;
   final String fchalta;
-  final String desc_sucursal;
+  final String descSucursal;
 
-  Cotizacion({this.id_cotizaciones, this.sucursal_id, this.moneda, this.cotizacion_compra, this.cotizacion_venta, this.fchalta, this.desc_sucursal});
+  Cotizacion({this.idCotizaciones, this.idSucursal, this.moneda, this.cotizacionCompra, this.cotizacionVenta, this.fchalta, this.descSucursal});
 
   factory Cotizacion.fromJson(Map<String, dynamic> json) {
     return Cotizacion(
-      id_cotizaciones: json['id_cotizaciones'],
-      sucursal_id: json['sucursal_id'],
+      idCotizaciones: json['id_cotizaciones'],
+      idSucursal: json['sucursal_id'],
       moneda: json['moneda'],
-      cotizacion_compra: json['cotizacion_compra'],
-      cotizacion_venta: json['cotizacion_venta'],
+      cotizacionCompra: json['cotizacion_compra'],
+      cotizacionVenta: json['cotizacion_venta'],
       fchalta: json['fchalta'],
-      desc_sucursal: json['desc_sucursal'],
+      descSucursal: json['desc_sucursal'],
     );
   }
 }

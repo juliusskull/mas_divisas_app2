@@ -2,37 +2,36 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mas_divisas_app/models/cotizacion.dart';
 import 'package:mas_divisas_app/models/post_reserva.dart';
 import 'package:mas_divisas_app/models/post_respuesta.dart';
 
 class ReservarScreen extends StatefulWidget {
-  final String id_cotizacion;
-  final String tipo_moneda;
+  final String idCotizacion;
+  final String tipoMoneda;
   final String compra;
   final String venta;
-  final String cliente_id;
-  ReservarScreen({Key key,this.id_cotizacion,this.tipo_moneda,this.compra,this.venta,this.cliente_id}) : super(key: key);
+  final String idCliente;
+  ReservarScreen({Key key,this.idCotizacion,this.tipoMoneda,this.compra,this.venta,this.idCliente}) : super(key: key);
   @override
-  _MyHomePageState createState() => new _MyHomePageState(id_cotizacion: this.id_cotizacion,tipo_moneda: this.tipo_moneda,compra: this.compra,venta: this.venta,cliente_id: this.cliente_id);
+  _MyHomePageState createState() => new _MyHomePageState(idCotizacion: this.idCotizacion,tipoMoneda: this.tipoMoneda,compra: this.compra,venta: this.venta,idCliente: this.idCliente);
 }
 
 class _MyHomePageState extends State<ReservarScreen> {
-  final String id_cotizacion;
-  final String tipo_moneda;
+  final String idCotizacion;
+  final String tipoMoneda;
   final String compra;
   final String venta;
-  final String cliente_id;
-  int _currVal = 1;
+  final String idCliente;
+
   double _radioValue = 0;
-  String  _imagen_utl="http://sd-1578096-h00001.ferozo.net/reservas/reservas_imagenes/";//'https://picsum.photos/250?image=9';
+  String  _imagenUrl="http://sd-1578096-h00001.ferozo.net/reservas/reservas_imagenes/";//'https://picsum.photos/250?image=9';
   final String url="http://sd-1578096-h00001.ferozo.net/reservas/wses.php";
-  int  _estado_add=1;
-  int  _estado_img=2;
+  int  estadoAdd=1;
+  int  estadoImg=2;
   int estado= 1;
-  String valor_final="0.0";
-  String reserva_id="";
-  _MyHomePageState({this.id_cotizacion,this.tipo_moneda,this.compra,this.venta,this.cliente_id});
+  String valorFinal="0.0";
+  String idReserva="";
+  _MyHomePageState({this.idCotizacion,this.tipoMoneda,this.compra,this.venta,this.idCliente});
   final cantidadController = TextEditingController();
   @override
   void initState() {
@@ -41,7 +40,8 @@ class _MyHomePageState extends State<ReservarScreen> {
     });
     super.initState();
   }
-  @override
+
+  // ignore: must_call_super
   void dispose() {
     cantidadController.dispose();
   }
@@ -51,19 +51,19 @@ class _MyHomePageState extends State<ReservarScreen> {
       appBar: new AppBar(
         title: new Text('Reservas'),
       ),
-      body: (estado==this._estado_add)? ver_add(): ver_imagen()
+      body: (estado==this.estadoAdd)? verAdd(): verImagen()
       ,
     );
   }
   void buttonPressed(){
     setState(() {
-      estado=this._estado_img;
+      estado=this.estadoImg;
     });
   }
-  ver_imagen(){
+  verImagen(){
     return Container(
       margin: const EdgeInsets.all(30),
-      child: Image.network(_imagen_utl+"R"+this.reserva_id+".png",
+      child: Image.network(_imagenUrl+"R"+this.idReserva+".png",
         fit: BoxFit.cover,
         height: double.infinity,
         width: double.infinity,
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<ReservarScreen> {
     );
     */
   }
-ver_add(){
+verAdd(){
   return  Container(
 
       child: new SingleChildScrollView(
@@ -89,7 +89,7 @@ ver_add(){
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           new Text(
-            this.tipo_moneda,
+            this.tipoMoneda,
             style: new TextStyle(
                 fontSize:19.0,
                 color: const Color(0xFF000000),
@@ -151,7 +151,7 @@ ver_add(){
                       fontFamily: "Roboto"),
                 ),
                 new Text(
-                  this.valor_final,
+                  this.valorFinal,
                   style: new TextStyle(
                       fontSize:15.0,
                       color: const Color(0xFF000000),
@@ -169,7 +169,7 @@ ver_add(){
             onChanged: (text) {
               print("valor=>"+_radioValue.toString() );
               setState(() {
-                _cambio_valor( text);
+                _cambioValor( text);
               });
             },
             decoration: new InputDecoration(
@@ -183,7 +183,7 @@ ver_add(){
                   color: Colors.black,
                 ),
                 prefixText: ' ',
-                suffixText: this.tipo_moneda,
+                suffixText: this.tipoMoneda,
                 suffixStyle: const TextStyle(color: Colors.black)),
           ),
           new Row(
@@ -210,9 +210,9 @@ ver_add(){
                 new RaisedButton(key:null,
                     onPressed:()async{
                         print("valor=>"+cantidadController.text);
-                        print("valor=>"+this.cliente_id);
-                        print("valor=>"+this.id_cotizacion);
-                        print("valor=>"+this.tipo_moneda);
+                        print("valor=>"+this.idCliente);
+                        print("valor=>"+this.idCotizacion);
+                        print("valor=>"+this.tipoMoneda);
                         String operacion="";
                         if(_radioValue==0.5){
                           operacion="venta";
@@ -220,13 +220,13 @@ ver_add(){
                           operacion="compra";
                         }
 
-                        PostReserva newPostReserva = new PostReserva(cliente_id: this.cliente_id,id_reserva: this.id_cotizacion,tipo_moneda: this.tipo_moneda,valor: this.valor_final,tipo: operacion);
+                        PostReserva newPostReserva = new PostReserva(idCliente: this.idCliente,idReserva: this.idCotizacion,tipoMoneda: this.tipoMoneda,valor: this.valorFinal,tipo: operacion);
                         PostRespuesta p= await createPostRespuesta(this.url,body: newPostReserva.toMap());
                         if(p.status){
                           print("reserva=>"+p.extra);
-                          this.reserva_id=p.extra;
+                          this.idReserva=p.extra;
                           setState(() {
-                            this.estado=this._estado_img;
+                            this.estado=this.estadoImg;
                           });
                           showDialog(
                             context: context,
@@ -311,7 +311,7 @@ ver_add(){
     });
   }
 
- _cambio_valor(String text){
+ _cambioValor(String text){
    try {
      double dd = double.parse(text);
      if(_radioValue==0.5){
@@ -320,16 +320,16 @@ ver_add(){
        dd = dd * double.parse(this.compra);
      }
 
-     this.valor_final = dd.toStringAsFixed(3);
+     this.valorFinal = dd.toStringAsFixed(3);
    } catch (exception) {
-     this.valor_final = "0.00";
+     this.valorFinal = "0.00";
    }
  }
   void radioChanged(double value) {
     print("ckech:"+ value.toString());
     setState(() {
       _radioValue = value;
-      _cambio_valor(this.cantidadController.text);
+      _cambioValor(this.cantidadController.text);
     });
   }
 

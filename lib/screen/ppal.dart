@@ -11,14 +11,14 @@ import 'package:mas_divisas_app/screen/loginScreen.dart';
 class Ppal extends StatelessWidget {
   // This widget is the root of your application.
   final String usuario;
-  final String cliente_id;
-  Ppal({Key key, this.usuario, this.cliente_id}) : super(key: key);
+  final String idCliente;
+  Ppal({Key key, this.usuario, this.idCliente}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return new MaterialApp(
-      home: new MyHomePage(usuario: this.usuario, cliente_id: this.cliente_id),
+      home: new MyHomePage(usuario: this.usuario, idCliente: this.idCliente),
     );
   }
 }
@@ -26,10 +26,10 @@ class Ppal extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   final String usuario;
-  final String cliente_id;
-  const MyHomePage({Key key, this.usuario, this.cliente_id}) : super(key: key);
+  final String idCliente;
+  const MyHomePage({Key key, this.usuario, this.idCliente}) : super(key: key);
   @override
-  _MyHomePageState createState() => new _MyHomePageState(usuario: this.usuario, cliente_id: this.cliente_id);
+  _MyHomePageState createState() => new _MyHomePageState(usuario: this.usuario, idCliente: this.idCliente);
 }
 class API {
   static Future getUsers(baseUrl ) {
@@ -40,7 +40,7 @@ class API {
 class _MyHomePageState extends State<MyHomePage> {
   final String baseUrl = "http://sd-1578096-h00001.ferozo.net/reservas/wses.php?sucursales=1";
   final String usuario;
-  final String cliente_id;
+  final String idCliente;
   final String tyc="Mediante esta aplicación, podrás reservar una  una operación de  compra-venta de moneda "
   + "extranjera. Realizada la reserva, la operación se concreta en una de nuestras agencias."
   +"La reserva es válida por 3 horas.  El precio de reserva se mantendrá si el mismo no varía en más o en menos 1%."
@@ -49,8 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
   +"Por cualquier duda o inquietud, consulte personalmente con nosotros, será tratado con la mayor discreción. "
   +"Las reservas realizadas por esta aplicación tienen una atención personalizada";
   var users = new List<Sucursal>();
-  _MyHomePageState({this.usuario,this.cliente_id});
-  var icono_empresa = Row(
+  _MyHomePageState({this.usuario,this.idCliente});
+  var iconoEmpresa = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset('assets/user.png')
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.center ,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                  Text(users[index].desc_sucursal,style: TextStyle(
+                  Text(users[index].descSucursal,style: TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
                    color: Colors.white
@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (BuildContext context) => new ListaDeCotizaciones(usuario: this.usuario,cliente_id: this.cliente_id, sucursal_id: '1',)));
+                        builder: (BuildContext context) => new ListaDeCotizaciones(usuario: this.usuario,idCliente: this.idCliente, idSucursal: '1',)));
 
               },
               );}),
@@ -183,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              /*accountName: new Text('error'),*/
+              accountName: new Text(''),
               accountEmail:new Text(this.usuario) ,
               currentAccountPicture: new CircleAvatar(
                 backgroundImage: new AssetImage('assets/user.png'),
@@ -207,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (BuildContext context) => new ListaDePedidosScreen(usuario:this.usuario,cliente_id:this.cliente_id)));
+                        builder: (BuildContext context) => new ListaDePedidosScreen(usuario:this.usuario,idCliente:this.idCliente)));
 
                 },
             ),

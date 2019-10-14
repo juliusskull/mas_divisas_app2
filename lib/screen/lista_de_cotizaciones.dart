@@ -8,16 +8,16 @@ import 'package:http/http.dart' as http;
 class ListaDeCotizaciones extends StatelessWidget {
   // This widget is the root of your application.
   final String usuario;
-  final String cliente_id;
-  final String sucursal_id;
+  final String idCliente;
+  final String idSucursal;
 
-  ListaDeCotizaciones({Key key, this.usuario, this.cliente_id, this.sucursal_id}) : super(key: key);
+  ListaDeCotizaciones({Key key, this.usuario, this.idCliente, this.idSucursal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return new MaterialApp(
-      home: new MyHomePage(usuario: this.usuario, cliente_id: this.cliente_id,sucursal_id: this.sucursal_id,),
+      home: new MyHomePage(usuario: this.usuario, idCliente: this.idCliente,idSucursal: this.idSucursal,),
     );
   }
 }
@@ -26,11 +26,11 @@ const baseUrl = "http://sd-1578096-h00001.ferozo.net/reservas/wses.php?cotizacio
 
 class MyHomePage extends StatefulWidget {
   final String usuario;
-  final String cliente_id;
-  final String sucursal_id;
-  const MyHomePage({Key key, this.usuario, this.cliente_id, this.sucursal_id}) : super(key: key);
+  final String idCliente;
+  final String idSucursal;
+  const MyHomePage({Key key, this.usuario, this.idCliente, this.idSucursal}) : super(key: key);
   @override
-  _MyHomePageState createState() => new _MyHomePageState(usuario: this.usuario, cliente_id: this.cliente_id,sucursal_id: this.sucursal_id);
+  _MyHomePageState createState() => new _MyHomePageState(usuario: this.usuario, idCliente: this.idCliente,idSucursal: this.idSucursal);
 }
 class API {
   static Future getUsers( sucursal) {
@@ -42,8 +42,8 @@ class API {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String usuario;
-  final String cliente_id;
-  final String sucursal_id;
+  final String idCliente;
+  final String idSucursal;
   final String tyc="Caseros 521 local 6, (Paseo del Cabildo) telf.387-4222466. Horario de atención de 8.30 a 13 hs y de 16.30 a 19hs y sábados de 9 a 13 hs";
   var users = new List<Cotizacion>();
   initState() {
@@ -51,15 +51,15 @@ class _MyHomePageState extends State<MyHomePage> {
     _getUsers();
   }
   _getUsers() {
-    API.getUsers(this.sucursal_id).then((response) {
+    API.getUsers(this.idSucursal).then((response) {
       setState(() {
         Iterable list = json.decode(response.body);
         users= list.map((model) => Cotizacion.fromJson(model)).toList();
         var users2 = new List<Cotizacion>();
         print("length=>"+users.length.toString()
-        +"->"+this.sucursal_id);
+        +"->"+this.idSucursal);
         for(final aa in users){
-          if (aa.sucursal_id == this.sucursal_id && aa.moneda!=""){
+          if (aa.idSucursal == this.idSucursal && aa.moneda!=""){
 
             users2.add(aa);
           }
@@ -90,14 +90,14 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
-  _MyHomePageState({this.usuario,this.cliente_id,this.sucursal_id});
-  var icono_empresa = Row(
+  _MyHomePageState({this.usuario,this.idCliente,this.idSucursal});
+  var iconoEmpresa = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset('assets/user.png')
       ]
   );
-  Widget  _boton(BuildContext context, String id_cotizacion,String tipo_moneda, String compra, String venta ){
+  Widget  _boton(BuildContext context, String idCotizacion,String tipoMoneda, String compra, String venta ){
     return RaisedButton(
         padding: const EdgeInsets.all(8.0),
         elevation: 4.0,
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.push(
           context,
           new MaterialPageRoute(
-          builder: (BuildContext context) => new ReservarScreen(cliente_id: this.cliente_id,compra: compra, venta: venta,id_cotizacion: id_cotizacion,tipo_moneda: tipo_moneda,)));
+          builder: (BuildContext context) => new ReservarScreen(idCliente: this.idCliente,compra: compra, venta: venta,idCotizacion: idCotizacion,tipoMoneda: tipoMoneda,)));
 
         }
     );
@@ -187,9 +187,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ListTile(
                     title: IntrinsicHeight( child: _dinero(
                         users[index].moneda=="DOLAR"?"Dolar Estaunidence": users[index].moneda=="PESO_CHILENO"?"Peso Chileno": users[index].moneda=="REAL"?"Real":users[index].moneda
-                        ,users[index].cotizacion_compra
-                        , users[index].cotizacion_venta),)
-                    , subtitle: Container( color: Colors.black,  child:  _boton(context,users[index].id_cotizaciones,users[index].moneda, users[index].cotizacion_compra,users[index].cotizacion_venta )),
+                        ,users[index].cotizacionCompra
+                        , users[index].cotizacionVenta),)
+                    , subtitle: Container( color: Colors.black,  child:  _boton(context,users[index].idCotizaciones,users[index].moneda, users[index].cotizacionCompra,users[index].cotizacionVenta )),
                   )
               );
               // else return null;
@@ -236,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              /*accountName: new Text('Raja'),*/
+              accountName: new Text(''),
               accountEmail: new Text(this.usuario+"-"),
               currentAccountPicture: new CircleAvatar(
                 backgroundImage: new AssetImage('assets/user.png'),
